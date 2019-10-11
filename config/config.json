@@ -2,8 +2,9 @@
   "development": {
     "username": "root",
     "password": "password",
-    "database": "exampledb",
+    "database": "game_db",
     "host": "localhost",
+    "port": 3306,
     "dialect": "mysql"
   },
   "test": {

@@ -6,25 +6,31 @@ var $exampleList = $("#example-list");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
-  saveExample: function(example) {
+  saveCharacter: function(example) {
     return $.ajax({
       headers: {
         "Content-Type": "application/json"
       },
       type: "POST",
-      url: "api/examples",
+      url: "api/character",
       data: JSON.stringify(example)
     });
   },
-  getExamples: function() {
+  getUsers: function() {
     return $.ajax({
-      url: "api/examples",
+      url: "api/users",
+      type: "GET"
+    });
+  },
+  getCharacters: function() {
+    return $.ajax({
+      url: "api/characters",
       type: "GET"
     });
   },
   deleteExample: function(id) {
     return $.ajax({
-      url: "api/examples/" + id,
+      url: "api/user/" + id,
       type: "DELETE"
     });
   }
