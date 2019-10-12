@@ -1,45 +1,27 @@
-var db = require("../models");
+var path = require("path");
 
+// Routes
+// =============================================================
 module.exports = function(app) {
-  // Load index page
+  // Each of the below routes just handles the HTML page that the user gets sent to.
+
+  // index route loads view.html
   app.get("/", function(req, res) {
-    res.render("index", {
-      msg: "Welcome!"
-    });
+    res.sendFile(path.join(__dirname, "../public/blog.html"));
   });
 
-  // Load character creation page
-  app.get("/character", function(req, res) {
-    db.Example.findAll({}).then(function(dbExamples) {
-      res.render("index", {
-        msg: "Welcome!",
-        examples: dbExamples
-      });
-    });
-  });
-  // Load fight page
-  app.get("/battle", function(req, res) {
-    db.Example.findAll({}).then(function(dbExamples) {
-      res.render("index", {
-        msg: "Welcome!",
-        examples: dbExamples
-      });
-    });
+  // cms route loads cms.html
+  app.get("/cms", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/cms.html"));
   });
 
-  // // Load example page and pass in an example by id
-  // app.get("/example/:id", function(req, res) {
-  //   db.Example.findOne({ where: { id: req.params.id } }).then(function(
-  //     dbExample
-  //   ) {
-  //     res.render("example", {
-  //       example: dbExample
-  //     });
-  //   });
-  // });
+  // blog route loads blog.html
+  app.get("/blog", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/blog.html"));
+  });
 
-  // Render 404 page for any unmatched routes
-  app.get("*", function(req, res) {
-    res.render("404");
+  // authors route loads author-manager.html
+  app.get("/users", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/user-manager.html"));
   });
 };

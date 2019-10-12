@@ -1,19 +1,21 @@
 module.exports = function(sequelize, DataTypes) {
   var Character = sequelize.define("Character", {
-    characterName: DataTypes.STRING,
-    class: DataTypes.STRING,
-    hp: DataTypes.INTEGER,
-    attack: DataTypes.INTEGER
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [1]
+      }
+    }
   });
 
   Character.associate = function(models) {
-    // We're saying that a Post should belong to an Author
-    // A Post can't be created without an Author due to the foreign key constraint
     Character.belongsTo(models.User, {
       foreignKey: {
         allowNull: false
       }
     });
   };
+
   return Character;
 };
