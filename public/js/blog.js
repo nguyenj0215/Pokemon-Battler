@@ -108,7 +108,7 @@ $(document).ready(function() {
     window.location.href = "/cms?character_id=" + currentCharacter.id;
   }
 
-  // This function displays a message when there are no posts
+  // This function displays a message when there are no characters
   function displayEmpty(id) {
     var query = window.location.search;
     var partial = "";

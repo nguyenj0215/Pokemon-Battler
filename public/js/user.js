@@ -45,12 +45,14 @@ $(document).ready(function() {
       newTr.append("<td>0</td>");
     }
     newTr.append(
-      "<td><a href='/blog?user_id=" +
+      "<td><a href='/api/characters?user_id=" +
         userData.id +
-        "'>Go to Characters</a></td>"
+        "'>See existing characters</a></td>"
     );
     newTr.append(
-      "<td><a href='/cms?user_id=" + userData.id + "'>Create a User</a></td>"
+      "<td><a href='/cms?user_id=" +
+        userData.id +
+        "'>Create a new character</a></td>"
     );
     newTr.append(
       "<td><a style='cursor:pointer;color:red' class='delete-user'>Delete User</a></td>"
