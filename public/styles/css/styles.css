@@ -75,3 +75,24 @@ button.edit {
   font-weight: bold;
   font-family: 'Alegreya', serif;
 }
+.card {
+  margin-top: 10px;
+  margin-left: -121px;
+}
+#attkOne {
+  margin-right: 5px;
+}
+#attkTwo {
+  margin-right: 5px;
+}
+#attkThree {
+  margin-right: 5px;
+}
+#gameText {
+  margin-top:  10px;
+  background-color: blue;
+}
+#playerChat {
+  margin-top:  10px;
+  background-color: red;
+}
