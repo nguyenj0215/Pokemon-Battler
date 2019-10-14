@@ -1,6 +1,9 @@
 var pokemonArry = [
   {
     name: bulbasaur,
+    backImg:
+      "https://vignette.wikia.nocookie.net/pokemon-reborn/images/5/57/001b.png/revision/latest?cb=20160924040540",
+    frontImg: "https://art.pixilart.com/f8762cca4e.png",
     num: 1,
     species: "Bulbasaur",
     types: ["Grass", "Poison"],
@@ -16,6 +19,10 @@ var pokemonArry = [
 
   {
     name: charmander,
+    backImg:
+      "https://www.tynker.com/projects/images/5a8310bd76f293f87d8b45c2/battler---charmander.png",
+    frontImg:
+      "https://vignette.wikia.nocookie.net/pokemon-reborn/images/d/d5/004.png/revision/latest?cb=20160924041753",
     num: 4,
     species: "Charmander",
     types: ["Fire"],
@@ -31,6 +38,10 @@ var pokemonArry = [
 
   {
     name: squirtle,
+    backImg:
+      "https://vignette.wikia.nocookie.net/pokemon-reborn/images/e/e9/007b.png/revision/latest?cb=20160924042430",
+    frontImg:
+      "https://steamuserimages-a.akamaihd.net/ugc/26237932152117820/A00AC1710EAF403395282CE858EC6CD8C70C0995/",
     num: 7,
     species: "Squirtle",
     types: ["Water"],
