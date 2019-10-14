@@ -15,7 +15,6 @@ app.use(express.static("public"));
 
 // Routes
 require("./routes/user-api-routes.js")(app);
-require("./routes/post-api-routes.js")(app);
 require("./routes/htmlRoutes.js")(app);
 
 var syncOptions = { force: false };
