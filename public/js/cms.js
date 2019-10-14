@@ -103,7 +103,7 @@ $(document).ready(function() {
     userSelect.val(userId);
   }
 
-  // Creates the author options in the dropdown
+  // Creates the user options in the dropdown
   function createUserRow(user) {
     var listOption = $("<option>");
     listOption.attr("value", user.id);
@@ -111,14 +111,14 @@ $(document).ready(function() {
     return listOption;
   }
 
-  // Update a given post, bring user to the blog page when done
-  function updateCharacter(character) {
-    $.ajax({
-      method: "PUT",
-      url: "/api/characters",
-      data: character
-    }).then(function() {
-      window.location.href = "/blog";
-    });
-  }
+  // // Update a given post, bring user to the blog page when done
+  // function updateCharacter(character) {
+  //   $.ajax({
+  //     method: "PUT",
+  //     url: "/api/characters",
+  //     data: character
+  //   }).then(function() {
+  //     window.location.href = "/blog";
+  //   });
+  // }
 });

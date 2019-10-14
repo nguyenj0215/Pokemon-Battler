@@ -5,7 +5,7 @@ module.exports = function(sequelize, DataTypes) {
 
   User.associate = function(models) {
     User.hasMany(models.Character, {
-      onDelete: "cascade"
+      onDelete: "CASCADE"
     });
   };
   return User;

@@ -99,32 +99,23 @@ $(document).ready(function() {
     deleteCharacter(currentCharacter.id);
   }
 
-  // This function figures out which post we want to edit and takes it to the appropriate url
-  function handleCharacterEdit() {
-    var currentCharacter = $(this)
-      .parent()
-      .parent()
-      .data("character");
-    window.location.href = "/cms?character_id=" + currentCharacter.id;
-  }
-
-  // This function displays a message when there are no characters
-  function displayEmpty(id) {
-    var query = window.location.search;
-    var partial = "";
-    if (id) {
-      partial = " for User #" + id;
-    }
-    blogContainer.empty();
-    var messageH2 = $("<h2>");
-    messageH2.css({ "text-align": "center", "margin-top": "50px" });
-    messageH2.html(
-      "No characters yet" +
-        partial +
-        ", navigate <a href='/cms" +
-        query +
-        "'>here</a> in order to get started."
-    );
-    blogContainer.append(messageH2);
-  }
+  // // This function displays a message when there are no characters
+  // function displayEmpty(id) {
+  //   var query = window.location.search;
+  //   var partial = "";
+  //   if (id) {
+  //     partial = " for User #" + id;
+  //   }
+  //   blogContainer.empty();
+  //   var messageH2 = $("<h2>");
+  //   messageH2.css({ "text-align": "center", "margin-top": "50px" });
+  //   messageH2.html(
+  //     "No characters yet" +
+  //       partial +
+  //       ", navigate <a href='/cms" +
+  //       query +
+  //       "'>here</a> in order to get started."
+  //   );
+  //   blogContainer.append(messageH2);
+  // }
 });

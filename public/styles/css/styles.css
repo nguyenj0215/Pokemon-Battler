@@ -13,7 +13,11 @@ form#cms {
 #cms textarea {
   resize: none;
 }
-
+.container, .blog {
+  padding: 0;
+  margin: 0 auto;
+  text-align: center;
+}
 .card-header button.delete,
 button.edit {
   float: right;

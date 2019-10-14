@@ -7,6 +7,7 @@ $(document).ready(function() {
   // an Author
   $(document).on("submit", "#user-form", handleUserFormSubmit);
   $(document).on("click", ".delete-user", handleDeleteButtonPress);
+  $(document).on("click", ".create-char", handleCreateCharButton);
 
   // Getting the initial list of Authors
   getUsers();
@@ -50,9 +51,7 @@ $(document).ready(function() {
         "'>See existing characters</a></td>"
     );
     newTr.append(
-      "<td><a href='/cms?user_id=" +
-        userData.id +
-        "'>Create a new character</a></td>"
+      "<td><a style='cursor:pointer;color:red' class='create-char'>Create Character</a></td>"
     );
     newTr.append(
       "<td><a style='cursor:pointer;color:red' class='delete-user'>Delete User</a></td>"
@@ -87,7 +86,7 @@ $(document).ready(function() {
     }
   }
 
-  // Function for handling what to render when there are no authors
+  // Function for handling what to render when there are no users
   function renderEmpty() {
     var alertDiv = $("<div>");
     alertDiv.addClass("alert alert-danger");
@@ -96,7 +95,8 @@ $(document).ready(function() {
   }
 
   // Function for handling what happens when the delete button is pressed
-  function handleDeleteButtonPress() {
+  function handleDeleteButtonPress(event) {
+    event.preventDefault();
     var listItemData = $(this)
       .parent("td")
       .parent("tr")
@@ -106,5 +106,10 @@ $(document).ready(function() {
       method: "DELETE",
       url: "/api/users/" + id
     }).then(getUsers);
+  }
+
+  function handleCreateCharButton(event) {
+    event.preventDefault();
+    $(".modal").modal("show");
   }
 });
