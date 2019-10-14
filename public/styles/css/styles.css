@@ -100,3 +100,7 @@ button.edit {
   margin-top:  10px;
   background-color: red;
 }
+.modal {
+  position: absolute;
+  top: 20%;
+}
