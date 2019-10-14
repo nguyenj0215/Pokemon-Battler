@@ -13,9 +13,9 @@ module.exports = function(sequelize, DataTypes) {
     Character.belongsTo(models.User, {
       foreignKey: {
         allowNull: false
-      }
+      },
+      onDelete: "CASCADE"
     });
   };
-
   return Character;
 };
