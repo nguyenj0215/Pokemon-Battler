@@ -10,10 +10,10 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../public/blog.html"));
   });
 
-  // cms route loads cms.html
-  app.get("/cms", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/cms.html"));
-  });
+  // // cms route loads cms.html
+  // app.get("/cms", function(req, res) {
+  //   res.sendFile(path.join(__dirname, "../public/cms.html"));
+  // });
 
   // blog route loads blog.html
   app.get("/blog", function(req, res) {
@@ -23,5 +23,10 @@ module.exports = function(app) {
   // authors route loads author-manager.html
   app.get("/users", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/user-manager.html"));
+  });
+
+  // authors route loads author-manager.html
+  app.get("/battle", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/battle.html"));
   });
 };
