@@ -12,11 +12,11 @@
 // attack points/damage for each character.
 // defense points for each character.
 // different character classes.
-var players = {};
-var gameLogic = function(io) {
-  io.on("connection", function(socket) {
-    socket.on("disconnect", function() {
-      safeRemove(socket.id);
-    });
-  });
-};
+// var players = {};
+// var gameLogic = function(io) {
+//   io.on("connection", function(socket) {
+//     socket.on("disconnect", function() {
+//       safeRemove(socket.id);
+//     });
+//   });
+// };
