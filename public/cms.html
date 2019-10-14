@@ -6,35 +6,52 @@
 	<title>CMS - Express</title>
 	<!-- Latest compiled and minified CSS & JS -->
 	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0/flatly/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="styles/css/styles.css" media="screen" title="no title">
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="styles/css/styles.css" media="screen" title="no title">
+	<link href="https://fonts.googleapis.com/css?family=Alegreya&display=swap" rel="stylesheet">
 </head>
 
 <body>
 	<div class="container hidden">
-		<div class="row top-30">
-      <div class="col-md-2 col-sm-2">
-        <a class="btn btn-light" href="/blog">Go to Home</a>
-      </div>
-      <div class="col-md-2 col-sm-2">
-        <a class="btn btn-light" href="/users">Manage Users</a>
-      </div>
-    </div>
 		<div class="row">
+			<nav class="navbar navbar-expand-lg navbar-dark bg-primary col-md-12">
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+					aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNavDropdown">
+					<ul class="navbar-nav navLinks">
+						<li class="nav-item">
+							<a class="nav-link" href="/blog">Home page</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/users">Manage Users</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+
+		<div class="row characterPageHead">
+			<div class="col-md-12">
+				Select your username and create your own character
+			</div>
+		</div>
+
+		<div class="row characterCreationBox">
 			<div class="col-md-6 offset-md-3">
 				<form id="cms">
 					<div class="form-group">
-						<br>
-						<label for="title">Chracter name:</label>
-						<input placeholder="Character Title" type="text" class="form-control" id="title">
-						<br>
 						<div class="form-group">
-							<label for="category">User:</label>
+							<label for="category">Username:</label>
 							<select class="custom-select" id="user">
-  						</select>
+							</select>
 						</div>
-						<br />
+
+						<label for="title">Chracter name:</label>
+						<input placeholder="Character name" type="text" class="form-control" id="title">
+						<br>
 						<button type="submit" class="btn btn-success submit">Submit</button>
 					</div>
 				</form>
