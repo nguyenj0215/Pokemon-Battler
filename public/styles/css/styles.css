@@ -131,12 +131,16 @@ button.edit {
 }
 .accordion {
   max-width: 320px;
+  opacity: 0.8;
+  filter: alpha(opacity=50);
+  font-weight: bolder;
+  font-size: 18px;
 }
 #headingOne {
 
 }
-#gameChat {
-float:left;
+#chatBox {
+float:right;
 }
 @media (min-width: 992px) {
 .container {
