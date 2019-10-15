@@ -12,6 +12,13 @@ body {
   -o-background-size: cover;
   background-size: cover;
 }
+.battlePage {
+  background: url("../../images/battleBackGround.gif") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 button.submit {
   float: right;
 }
@@ -122,9 +129,16 @@ button.edit {
   position: absolute;
   top: 20%;
 }
+.accordion {
+  max-width: 320px;
+}
+#headingOne {
+
+}
+#gameChat {
+float:left;
+}
 @media (min-width: 992px) {
 .container {
     max-width: 100%;
-}
-
 }
