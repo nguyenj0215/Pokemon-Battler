@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css?family=Alegreya&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body class="blogPage">
   <div class="container blog">
     <div class="row">
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary col-md-12">
@@ -21,46 +21,44 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav navLinks">
+          <ul class="navbar-nav navLinks" style="margin-left: 3%;">
             <li class="nav-item">
               <a class="nav-link createNewUser" style='cursor:pointer'>New User?</a>
             </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="/cms">Create Character</a>
-            </li> -->
             <li class="nav-item">
-<<<<<<< HEAD
-<<<<<<< HEAD
-							<a class="nav-link" href="/battle.html">Ready  for battle</a>
+              <a class="nav-link" href="/battle.html">Ready for battle!</a>
 						  </li>
-=======
-              <a class="nav-link" href="/battle">Ready for battle</a>
-            </li>
->>>>>>> 2120e6d1df36da1ee3cd6f39ac793947da6c5010
-=======
-              <a class="nav-link" href="/battle">Ready for battle</a>
-            </li>
->>>>>>> 364fd7ace5a4c2760445426479ce7b3667e75693
+
           </ul>
         </div>
       </nav>
     </div>
     <div class="row">
-      <div class="gameName col-md-12">
+      <div class="gameName col-md-7">
         Game name/Welcome message here
       </div>
     </div>
 
     <div class="row blogContent">
-      <div class="col-md-7">
+      <div class="col-md-7" style="margin-left: 2%; margin-right: 3%;">
         <div class="gamePicDiv">
           <img class="gamePic img-fluid" src="/images/background_waves.jpg" alt="Game Picture">
         </div>
       </div>
 
-      <div class="gameDescription col-md-5">
-        Game Description,
-        basic instructions
+      <div class="gameDescriptionBox col-md-4">
+        <p class="gameDescription"> 
+          Game Description
+          <br>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate amet 
+          eligendi dolores dignissimos nisi? Et  sit amet consectetur adipisicing elit. Cupiditate amet
+          sit amet consectetur adipisicing elit. Cupiditate amet  sit amet consectetur adipisicing elit. Cupiditate amet
+          rem natus asperiores nihil, veritatis sapiente, inventore tempore hic, culpa ea a quod esse eius?
+        <br><br>
+        How to play
+        <br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni at distinctio qui repellat aut voluptate nisi illo 
+        rem veniam quas, quidem vitae numquam cumque nostrum, optio minus vero. Voluptatem, iste?
+        </p>
+
       </div>
 
     </div>
@@ -70,8 +68,8 @@
   <div class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Create a unique username</h5>
+        <div class="modal-header" style="background-color: #4aaaa5">
+          <h5 class="modal-title" style="font-family: 'Alegreya', serif; font-weight: bold; font-size: 24px; color: white; letter-spacing: 2px">Create a unique username</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -79,13 +77,11 @@
         <div class="modal-body">
           <form id="user-form">
             <td colspan="4">
-              <input placeholder="Enter a name" id="user-name" type="text" />
+              <input placeholder="Enter a name" id="user-name" type="text" style="padding-left: 10px"/>
             </td>
-            <td><button type="submit" class="btn btn-success" style="margin-top: 15px; float: right">Create User</button>
+            <td><button type="submit" class="btn btn-success" style="margin-top: 15px; float: right; font-weight: bold">Submit</button>
             </td>
           </form>
-          <br><br><br>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="float: right">Close</button>
         </div>
 
       </div>
