@@ -1,55 +1,58 @@
-//server 8080
 
-// const server = require('http').createServer();
-// const io = require('socket.io')(server);
-// io.on('connection', client => {
-//   client.on('event', data => { /* … */ });
-//   client.on('disconnect', () => { /* … */ });
-// });
 
-//Database3306
 
-// server.listen(3000);
-// template for setting up socket io in the server
-// const app = require('express')();
-// const server = require('http').createServer(app);
-// const io = require('socket.io')(server);
-// io.on('connection', () => { /* … */ });
-// server.listen(3000)
-// setting up and connecting socket io with express
+var express = require('express');
+var path = require('path');
 
-var app = require("express")();
-var http = require("http").Server(app);
-var io = require("socket.io")(http);
+var app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 
-app.get("/", function(req, res) {
-  res.sendfile("index.html");
+var rooms = 0;
+
+app.use(express.static('.'));
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'game.html'));
 });
 
-users = [];
-io.on("connection", function(socket) {
-  console.log("A user connected");
-  socket.on("setUsername", function(data) {
-    console.log(data);
-    if (users.indexOf(data) > -1) {
-      socket.emit(
-        "userExists",
-        data + " username is taken! Try some other username."
-      );
-    } else {
-      users.push(data);
-      socket.emit("userSet", {
-        username: data
-      });
-    }
-  });
+io.on('connection', (socket) => {
 
-  socket.on("msg", function(data) {
-    //Send message to everyone
-    io.sockets.emit("newmsg", data);
-  });
+    // Create a new game room and notify the creator of game.
+    socket.on('createGame', (data) => {
+        socket.join(`room-${++rooms}`);
+        socket.emit('newGame', { name: data.name, room: `room-${rooms}` });
+    });
+
+    // Connect the Player 2 to the room he requested. Show error if room full.
+    socket.on('joinGame', function (data) {
+        var room = io.nsps['/'].adapter.rooms[data.room];
+        if (room && room.length === 1) {
+            socket.join(data.room);
+            socket.broadcast.to(data.room).emit('player1', {});
+            socket.emit('player2', { name: data.name, room: data.room })
+            
+        } else {
+            socket.emit('err', { message: 'Sorry, The room is full!' });
+        }
+    });
+
+    /**
+       * Handle the turn played by either player and notify the other.
+       */
+    socket.on('playTurn', (data) => {
+        socket.broadcast.to(data.room).emit('turnPlayed', {
+            tile: data.tile,
+            room: data.room
+        });
+    });
+
+    /**
+       * Notify the players about the victor.
+       */
+    socket.on('gameEnded', (data) => {
+        socket.broadcast.to(data.room).emit('gameEnd', data);
+    });
 });
 
-http.listen(3000, function() {
-  console.log("listening on localhost:3000");
-});
+server.listen(process.env.PORT || 5000);
