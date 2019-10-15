@@ -15,30 +15,10 @@ body {
 button.submit {
   float: right;
 }
-
-form#cms {
-  margin-top: 20px;
-}
-
-#cms textarea {
-  resize: none;
-}
 .card-header button.delete,
 button.edit {
   float: right;
   margin: 5px;
-}
-
-.user-container {
-  margin-top: 50px;
-}
-
-.user-list {
-  margin-top: 25px;
-}
-
-.blog-container {
-  margin-top: 30px;
 }
 .hidden {
   display: none;
@@ -67,6 +47,7 @@ button.edit {
   font-family: 'Alegreya', serif;
   background-color: #4aaaa5;
   opacity: 0.9;
+  border-radius: 5px;
 }
 .gamePicDiv {
   opacity: 0.9;
@@ -78,7 +59,7 @@ button.edit {
   height: 100%;
 }
 .gameDescriptionBox {
-  height: 450px;
+  height: 100%;
   border-radius: 25px;
   background-color: #4aaaa5;
   opacity: 0.9;
@@ -88,15 +69,6 @@ button.edit {
   padding: 20px 10px 20px 10px;
   font-size: 18px;
   text-align: justify;
-}
-.characterPageHead {
-  border: 1px dashed black;
-
-  margin-top: 30px;
-  text-align: center;
-  font-size: 32px;
-  font-weight: bold;
-  font-family: 'Alegreya', serif;
 }
 .card {
   margin-top: 10px;
@@ -122,6 +94,7 @@ button.edit {
   position: absolute;
   top: 20%;
 }
+
 @media (min-width: 992px) {
 .container {
     max-width: 100%;
