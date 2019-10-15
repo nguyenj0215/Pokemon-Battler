@@ -6,7 +6,7 @@ body {
   opacity: 0.9;
 }
 .blogPage {
-  background: url("../../images/main-background.png") no-repeat center center fixed; 
+  background: url("../../images/mainBackGround.gif") no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -126,4 +126,5 @@ button.edit {
 .container {
     max-width: 100%;
 }
+
 }
