@@ -1,7 +1,9 @@
 /* eslint-disable no-restricted-globals */
+var pokemon = require("./pokemon")
+
 (function init() {
-  const P1 = 'X';
-  const P2 = 'O';
+  const P1 = pokemon[1];
+  const P2 = pokemon[2];
   let player;
   let game;
 
