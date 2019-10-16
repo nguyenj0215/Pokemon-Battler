@@ -4,6 +4,7 @@
   const P2 = 'O';
   let player;
   let game;
+  $(".battlePage").hide();
 
   // const socket = io.connect('http://tic-tac-toe-realtime.herokuapp.com'),
   const socket = io.connect('http://localhost:8080');
@@ -92,7 +93,8 @@
     }
     // Remove the menu from DOM, display the gameboard and greet the player.
     displayBoard(message) {
-      $('#fightArena').css('display', 'none');
+      $('.menu').css('display', 'none');
+      $(".battlePage").show();
       $('.gameBoard').css('display', 'block');
       $('#userHello').html(message);
       this.createGameBoard();
