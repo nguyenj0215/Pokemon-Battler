@@ -171,7 +171,7 @@
 
   // Create a new game. Emit newGame event.
   $('#new').on('click', () => {
-    const name = $('#nameNew').val();
+    const name = $('#user').val();
     if (!name) {
       alert('Please enter your name.');
       return;
@@ -246,10 +246,5 @@
     socket.leave(data.room);
   });
 
-  /**
-	 * End the game on any err event.
-	 */
-  socket.on('err', (data) => {
-    game.endGame(data.message);
-  });
+
 }());
