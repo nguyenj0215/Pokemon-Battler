@@ -5,6 +5,8 @@ $(document).ready(function() {
   $(document).on("submit", "#user-form", handleUserFormSubmit);
   $(document).on("click", ".createNewUser", handleCreateUserButton);
 
+  getUsers();
+
   // A function to handle what happens when the form is submitted to create a new Author
   function handleUserFormSubmit(event) {
     event.preventDefault();
@@ -30,5 +32,18 @@ $(document).ready(function() {
   function handleCreateUserButton(event) {
     event.preventDefault();
     $(".modal").modal("show");
+  }
+
+  function getUsers() {
+    $.get("/api/users", renderUserList);
+  }
+  function renderUserList(data) {
+    console.log(data.name);
+    for (var i = 0; i < data.length; i++) {
+      var listOption = $("<option>");
+      listOption.attr("value", data[i].id);
+      listOption.text(data[i].name);
+      $("#user").append(listOption);
+    }
   }
 });
