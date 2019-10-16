@@ -14,43 +14,10 @@ let rooms = 0;
 
 app.use(express.static('public'));
 
-app.get('/game', (req, res) => {
-  res.sendFile(path.join(__dirname, '/public/game.html'));
-});
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '/public/blog.html'));
-});
-// blog route loads blog.html
-app.get('/blog', (req, res) => {
-  res.sendFile(path.join(__dirname, '/public/blog.html'));
-});
+require("./routes/htmlRoutes.js")(app);
+require("./routes/user-api-routes.js")(app);
 
-// authors route loads battle.html
-app.get('/battle', (req, res) => {
-  res.sendFile(path.join(__dirname, '/public/battle.html'));
-});
-app.get('/api/users', (req, res) => {
-  db.User.findAll().then((dbCharacter) => {
-    res.json(dbCharacter);
-  });
-});
-
-app.get('/api/users/:id', (req, res) => {
-  db.User.findOne({
-    where: {
-      id: req.params.id,
-    },
-    include: [db.Character],
-  }).then((dbUser) => {
-    res.json(dbUser);
-  });
-});
-
-app.post('/api/users', (req, res) => {
-  db.User.create(req.body).then((dbUser) => {
-    res.json(dbUser);
-  });
-});
+db.sequelize.sync({ force: true }).then(function() {
 
 io.on('connection', (socket) => {
   // Create a new game room and notify the creator of game.
@@ -88,6 +55,8 @@ server.listen(process.env.PORT || 8080, function() {
     "🌎  Listening on port 8080. Visit http://localhost:8080/ in your browser."
   );
 });
+
+})
 
 
 

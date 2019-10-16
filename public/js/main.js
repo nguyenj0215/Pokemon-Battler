@@ -92,7 +92,7 @@
     }
     // Remove the menu from DOM, display the gameboard and greet the player.
     displayBoard(message) {
-      $('.menu').css('display', 'none');
+      $('#fightArena').css('display', 'none');
       $('.gameBoard').css('display', 'block');
       $('#userHello').html(message);
       this.createGameBoard();
@@ -184,6 +184,7 @@
   $('#join').on('click', () => {
     const name = $('#nameJoin').val();
     const roomID = $('#room').val();
+
     if (!name || !roomID) {
       alert('Please enter your name and game ID.');
       return;
@@ -220,7 +221,6 @@
 	 */
   socket.on('player2', (data) => {
     const message = `Hello, ${data.name}`;
-
     // Create game for player 2
     game = new Game(data.room);
     game.displayBoard(message);

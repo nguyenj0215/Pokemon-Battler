@@ -139,6 +139,15 @@ button.edit {
 #chatBox {
 float:right;
 }
+.signUp {
+  background: url("../../images/pokeCenter.jpg") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-weight: bolder;
+  text-align: center;
+}
 @media (min-width: 992px) {
 .container {
     max-width: 100%;

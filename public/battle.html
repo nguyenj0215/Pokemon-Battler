@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css?family=Alegreya&display=swap" rel="stylesheet">
     <title>Battle</title>
 </head>
-<body class="battlePage">
+<body class="battlePage" id="fightArena">
   <div class="container blog">
     <div class="row">
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary col-md-12">
@@ -37,9 +37,11 @@
     <!-- <div class="container"> -->
     <div class="row col-md-12">
       <div class="card" style="width: 40rem;">
-        <img src="./images/battlePlaveHolder.gif" class="card-img-top" alt="battle placer holder">
-        <div id="boxOne"></div>
-        <div id="boxTwo"></div>
+        <div class="card-img-top">
+          <img src="./images/battlePlaveHolder.gif" alt="battle placer holder" style="width:100%; height: 100%;">
+          <div class="botLeft" style="border: 2px solid black; width: 100px; height: 100px; position:relative; bottom: 25%; left: 5%"></div>
+          <div class="topRight" style="border: 2px solid black; width: 100px; height: 100px; position:relative; bottom: 75%; left: 75%"></div>
+        </div>
         <div class="card-body">
           <h5 class="card-title .col-sm-12"></h5>
             <button type="button" class="btn btn-primary btn-lg" id="attkOne">attack</button>
