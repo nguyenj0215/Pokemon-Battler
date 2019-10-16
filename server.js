@@ -15,6 +15,7 @@ var db = require("./models");
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+//Room id will start at room-0
 var rooms = 0;
 
 //Static directory
@@ -38,8 +39,9 @@ db.sequelize.sync(syncOptions).then(function() {
   io.on("connection", function(socket) {
     // Create a new game room and notify the creator of game.
     socket.on("createGame", function(data) {
-      socket.join("room-" + ++rooms);
-      socket.emit("newGame", { name: data.name, room: "room-" + ++rooms });
+      socket.join("room-" + rooms++);
+      console.log(rooms);
+      socket.emit("newGame", { name: data.name, room: "room-" + rooms++ });
     });
 
     // Connect the Player 2 to the room he requested. Show error if room full.
@@ -47,7 +49,7 @@ db.sequelize.sync(syncOptions).then(function() {
       var room = io.nsps["/"].adapter.rooms[data.room];
       if (room && room.length === 1) {
         socket.join(data.room);
-        socket.broadcast.to(data.room).emit("player1", {});
+        socket.broadcast.in(data.room).emit("player1", {});
         socket.emit("player2", { name: data.name, room: data.room });
       } else {
         socket.emit("err", { message: "Sorry, The room is full!" });
