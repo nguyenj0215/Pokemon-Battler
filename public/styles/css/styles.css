@@ -136,13 +136,11 @@ button.edit {
   font-weight: bolder;
   font-size: 18px;
 }
-#headingOne {
-
-}
 #chatBox {
 float:right;
 }
 @media (min-width: 992px) {
 .container {
     max-width: 100%;
+}
 }
