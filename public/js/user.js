@@ -38,7 +38,6 @@ $(document).ready(function() {
     $.get("/api/users", renderUserList);
   }
   function renderUserList(data) {
-    console.log(data.name);
     for (var i = 0; i < data.length; i++) {
       var listOption = $("<option>");
       listOption.attr("value", data[i].id);
