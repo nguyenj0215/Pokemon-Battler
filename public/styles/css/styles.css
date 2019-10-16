@@ -148,6 +148,15 @@ float:right;
   font-weight: bolder;
   text-align: center;
 }
+.botleft {
+  background: url("https://www.tynker.com/projects/images/5a8310bd76f293f87d8b45c2/battler---charmander.png");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-weight: bolder;
+  text-align: center;
+}
 @media (min-width: 992px) {
 .container {
     max-width: 100%;
