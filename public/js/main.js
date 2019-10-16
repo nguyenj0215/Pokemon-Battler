@@ -42,7 +42,11 @@
 
   $(".battlePage").hide();
   // const socket = io.connect('http://tic-tac-toe-realtime.herokuapp.com'),
-  var socket = io.connect('http://localhost:8080');
+  if (process.env.HEROKU_APP_SOCKET_URL) {
+    var socket = io.connect();
+  } else {
+    var socket = io.connect('http://localhost:8080');
+  }
 
   //By default neither player will be able to attack
   var playerOneAttack = true;
