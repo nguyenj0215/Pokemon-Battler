@@ -5,7 +5,6 @@
 	<title>create room</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<link rel="stylesheet" href="styles/css/styles.css">
 	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0/flatly/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -15,31 +14,30 @@
 
 <body class="signUp">
 	<div class="container">
-		<div class="menu">
+		<div class="menu" style="background-color: #4aaaa5; opacity: 0.9; color: yellow; font-weight: bold">
 			<div style="font-weight: bold">
-			<h1>pokemon</h1>
-			<h3>How To Play</h3>
-			<ol>
-				<li>1.Player 1 Create a new game by entering the username</li>
-				<li>2.Player 2 Enter another username and the room id that is displayed on first window.</li>
-				<li>3.lick on join game. </li>
-			</ol>
+			<h3 style="text-decoration: underline;">Join a game</h3>
+
+				<p style="font-size: 16px">Player 1 - Create a new game by selecting an existing username</p>
+				<p style="font-size: 16px">Player 2 - Create a username in the textbox and use unique room id<br> given to player 1 to connect to the same lobby</p>
+
 			</div>
-			<h4>Create a new Game</h4>
+			<h4 style="text-decoration: underline;">Create a new Game</h4>
 			<!-- <input type="text" name="name" id="nameNew" placeholder="Enter your name" required> -->
 			<!--Dropdown to select from existing users-->
 			<form>
-				<select class="custom-select" name="name" id="user">
+				<select class="custom-select" name="name" id="user" style="width: 25%;">
 				</select>
 			</form>
-			<button id="new">New Game</button>
+			<button id="new" style="margin-top: 15px; font-size: 18px">New Game</button>
 
 			<!--Type in the id of an existing game and another dropdown for another existing user-->
 			<br><br>
-			<h4>Join an existing game</h4>
-			<input type="text" name="name" id="nameJoin" placeholder="Enter your name" required>
-			<input type="text" name="room" id="room" placeholder="Enter Game ID" required>
-			<button id="join">Join Game</button>
+			<h4 style="text-decoration: underline;">Join an existing game</h4>
+			<input type="text" name="name" id="nameJoin" placeholder="Enter your name" required style="font-size:18px;">
+			<input type="text" name="room" id="room" placeholder="Enter Game ID" required style="font-size:18px;"><br><br>
+			<button id="join" style="font-size:18px;">Join Game</button>
+			<br><br><br><br>
 		</div>
 		<div class="gameBoard" style="display: none;">
 			<h2 id="userHello"></h2>
@@ -87,23 +85,24 @@
 				</div>
 			  </div>
 			  <!-- <div class="container"> -->
-			  <div class="row col-md-12">
-				<div class="card" style="width: 40rem;">
-				  <div class="card-img-top">
-					<img src="./images/fightBackDrop.png" alt="battle placer holder" style="width:100%; height: 100%;">
-					<div class="botLeft" style="border: 2px solid black; width: 100px; height: 100px; position:relative; bottom: 25%; left: 5%"></div>
-					<div class="topRight" style="border: 2px solid black; width: 100px; height: 100px; position:relative; bottom: 75%; left: 75%"></div>
-				  </div>
+			  <div class="row">
+				<div class="card col-md-6" style="width: 40rem;">
+					<div class="card-img-top" style="height: 500px;">
+						<img src="./images/fightBackDrop.png" alt="battle placer holder" style="width:100%; height: 100%;">
+						<div class="botLeft" style="border: 2px ; width: 200px; height: 200px; position:relative; bottom: 60%; left: -5%">
+						<img src="./images/charmander.png" alt="">
+						</div>
+						<div class="topRight" style="border: 2px ; width: 100px; height: 100px; position:relative; bottom: 108%; left: 61%">
+						<img src="./images/squirtile.gif" alt="">
+						</div>
+					  </div>
 				  <div class="card-body">
-					<h5 class="card-title .col-sm-12"></h5>
-					  <button type="button" class="btn btn-primary btn-lg" id="attkOne">attack</button>
-					  <button type="button" class="btn btn-primary btn-lg" id="attkTwo">attack</button>
-					  <button type="button" class="btn btn-primary btn-lg" id="attkThree">attack</button>
-					  <button type="button" class="btn btn-primary btn-lg" id="attkFour">attack</button>
+					<h5 class="card-title"></h5>
+					  <button type="button" class="btn btn-primary btn-lg" id="attackButton" style="position: absolute; top: 91%">attack</button>
 				  </div>
 				</div>  
 		  
-				<div class="accordion" id="accordionExample">
+				<div class="accordion col-md-6" id="accordionExample">
 				  <div class="card">
 					<div class="card-header" id="headingOne">
 					  <h2 class="mb-0">
@@ -113,29 +112,12 @@
 					  </h2>
 					</div>     
 					<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-					  <div class="card-body">
-						Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+					  <div id="gameTextBox" class="card-body">
+						
 					  </div>
 					</div>
 				  </div>
 				</div>
-		  
-				<div class="accordion" id="accordionExample">
-				  <div class="card" >
-					<div class="card-header" id="headingTwo">
-					  <h2 class="mb-0">
-						<button id= class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-						  Game Chat
-						</button>
-					  </h2>
-					</div>
-					<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-					  <div class="card-body">
-						Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-					  </div>
-					</div>
-				  </div>
-				</div> 
 		  
 			  </div>
 			</div>
@@ -150,7 +132,7 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 		crossorigin="anonymous"></script>
-	<script src="http://code.jquery.com/jquery-3.4.1.min.js"
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
 		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
 	<script src="/js/main.js"></script>
