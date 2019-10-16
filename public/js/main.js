@@ -1,9 +1,7 @@
 /* eslint-disable no-restricted-globals */
-var pokemon = require("./pokemon")
-
 (function init() {
-  const P1 = pokemon[1];
-  const P2 = pokemon[2];
+  const P1 = 'X';
+  const P2 = 'O';
   let player;
   let game;
 
@@ -94,7 +92,7 @@ var pokemon = require("./pokemon")
     }
     // Remove the menu from DOM, display the gameboard and greet the player.
     displayBoard(message) {
-      $('.menu').css('display', 'none');
+      $('#fightArena').css('display', 'none');
       $('.gameBoard').css('display', 'block');
       $('#userHello').html(message);
       this.createGameBoard();
@@ -186,6 +184,7 @@ var pokemon = require("./pokemon")
   $('#join').on('click', () => {
     const name = $('#nameJoin').val();
     const roomID = $('#room').val();
+
     if (!name || !roomID) {
       alert('Please enter your name and game ID.');
       return;
@@ -222,7 +221,6 @@ var pokemon = require("./pokemon")
 	 */
   socket.on('player2', (data) => {
     const message = `Hello, ${data.name}`;
-
     // Create game for player 2
     game = new Game(data.room);
     game.displayBoard(message);
