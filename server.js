@@ -4,7 +4,7 @@ const express = require('express');
 const path = require('path');
 var db = require("./models");
 const app = express();
-const server = require('http').Server(app);
+const server = require('https').Server(app);
 const io = require('socket.io')(server);
 // Middleware
 app.use(express.urlencoded({ extended: false }));
