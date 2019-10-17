@@ -17,7 +17,7 @@ app.use(express.static('public'));
 require("./routes/htmlRoutes.js")(app);
 require("./routes/user-api-routes.js")(app);
 
-db.sequelize.sync({ force: true }).then(function() {
+db.sequelize.sync({ force: false }).then(function() {
 
 io.on('connection', (socket) => {
   // Create a new game room and notify the creator of game.
