@@ -3,24 +3,6 @@
 
   var pokemonArry = [
     {
-      name: "charmander",
-      backImg:
-        "https://www.tynker.com/projects/images/5a8310bd76f293f87d8b45c2/battler---charmander.png",
-      frontImg:
-        "https://vignette.wikia.nocookie.net/pokemon-reborn/images/d/d5/004.png/revision/latest?cb=20160924041753",
-      num: 4,
-      species: "Charmander",
-      types: ["Fire"],
-      genderRatio: { M: 0.875, F: 0.125 },
-      baseStats: { hp: 100, atk: 25, def: 43, spa: 60, spd: 50, spe: 65 },
-      abilities: { 0: "Blaze", H: "Solar Power" },
-      heightm: 0.6,
-      weightkg: 8.5,
-      color: "Red",
-      evos: ["charmeleon"],
-      eggGroups: ["Monster", "Dragon"]
-    },
-    {
       name: "squirtle",
       backImg:
         "https://vignette.wikia.nocookie.net/pokemon-reborn/images/e/e9/007b.png/revision/latest?cb=20160924042430",
@@ -37,14 +19,33 @@
       color: "Blue",
       evos: ["wartortle"],
       eggGroups: ["Monster", "Water 1"]
+    },
+    {
+      name: "charmander",
+      backImg:
+        "https://www.tynker.com/projects/images/5a8310bd76f293f87d8b45c2/battler---charmander.png",
+      frontImg:
+        "https://vignette.wikia.nocookie.net/pokemon-reborn/images/d/d5/004.png/revision/latest?cb=20160924041753",
+      num: 4,
+      species: "Charmander",
+      types: ["Fire"],
+      genderRatio: { M: 0.875, F: 0.125 },
+      baseStats: { hp: 70, atk: 25, def: 43, spa: 60, spd: 50, spe: 65 },
+      abilities: { 0: "Blaze", H: "Solar Power" },
+      heightm: 0.6,
+      weightkg: 8.5,
+      color: "Red",
+      evos: ["charmeleon"],
+      eggGroups: ["Monster", "Dragon"]
     }
   ];
 
   $(".battlePage").hide();
-  // const socket = io.connect('http://tic-tac-toe-realtime.herokuapp.com'),
- 
-    var socket = io.connect();
-  
+  //For local hosting use
+  const socket = io.connect('localhost:8080');
+  //For Heroku use 
+  //var socket = io.connect();
+
 
   //By default neither player will be able to attack
   var playerOneAttack = true;
@@ -60,32 +61,36 @@
   var characterTwoHp = pokemonArry[1].baseStats.hp;
 
   function battle() {
-
-      //on click of any of the 4 attack buttons which will all have this id
-      if (playerOneAttack) {
-        $("#attackButton").on("click", function () {
+    console.log( playerOneAttack, playerTwoAttack)
+    //on click of any of the 4 attack buttons which will all have this id
+    if (playerOneAttack) {
+      $("#attackButton").on("click", function () {
         console.log("player 1 attacking player 2")
         characterTwoHp -= characterOne.baseStats.atk;
-        console.log(characterTwoHp)
-        if (characterTwoHp < 0) {
-          console.log("Character one wins");
+        if (characterTwoHp <= 0) {
+          $("#gameTextBox").html("Player one has won!")
           return;
         }
-        socket.emit("playTurn", {room: game2});
+        $("#gameTextBox").html(characterOne.species + " has " + characterOneHp + " HP left.<br>" +
+        characterTwo.species + " has " + characterTwoHp + " HP left. " )
+        socket.emit("playTurn", {room: game2, playerOneAttack: false, playerTwoAttack:true, characterTwoHp: characterTwoHp, 
+          characterTwoName: characterTwo.species, characterOneHp: characterOneHp, characterOneName: characterOne.species});
 
       })
-      } else if (playerTwoAttack) {
-        $("#attackButton").on("click", function () {
+    } else if (playerTwoAttack) {
+      $("#attackButton").on("click", function () {
         console.log("player 2 attacking player 1")
         characterOneHp -= characterTwo.baseStats.atk;
-        console.log(characterOneHp)
-        if (characterOneHp < 0) {
-          console.log("Character two wins");
+        if (characterOneHp <= 0) {
+          $("#gameTextBox").html("Player two has won!")
           return;
         }
-        socket.emit("playTurn", {room: game1});
+        $("#gameTextBox").html(characterOne.species + " has " + characterOneHp + " HP left.<br>" +
+        characterTwo.species + " has " + characterTwoHp + " HP left. " )
+        socket.emit("playTurn", {room: game1, playerOneAttack: true, playerTwoAttack:false, characterTwoHp: characterTwoHp, 
+          characterTwoName: characterTwo.species, characterOneHp: characterOneHp, characterOneName: characterOne.species});
       })
-      }
+    }
   }
 
   // Create a new game. Emit newGame event.
@@ -114,37 +119,40 @@
     $(".battlePage").show();
   });
 
-  socket.on('newGame', (data) => {
-    console.log(
-      "Hello," + playerOneName + ". Please ask your friend to enter Game ID:" +
+  socket.once('newGame', (data) => {
+    $("#gameTextBox").append(
+      "Hello, " + playerOneName + ". Please ask your friend to enter Game ID:" +
       data.room + ". Waiting for player 2...");
 
     // Create game for player 1
     game1 = data.room;
   });
-  socket.on('player1', (data) => {
-    console.log("Player 1 has connected: " + playerOneName)
+  socket.once('player1', (data) => {
+    $("#gameTextBox").html("Player 1 connected sucessfully as: " + playerOneName)
   });
-   socket.on('turnPlayed', (data) => {
-    if (playerOneAttack) {
-      console.log("player one done attacking")
+  socket.once('turnPlayed', (data) => {
+    $("#gameTextBox").html(data.characterOneName + " has " + data.characterOneHp + " HP left.<br>" +
+    data.characterTwoName + " has " + data.characterTwoHp + " HP left. " )
+    if (!data.playerOneAttack && data.playerTwoAttack) {
+      $("#gameTextBox").append("<br>Opponent done attacking. It's your turn")
       playerOneAttack = false;
       playerTwoAttack = true;
       battle();
-    } else {
-      console.log("player two done attacking")
+    } else if (!data.playerTwoAttack && data.playerOneAttack) {
+      $("#gameTextBox").append("<br>Opponent done attacking. It's your turn")
       playerTwoAttack = false;
       playerOneAttack = true;
       battle();
     }
   });
 
-  socket.on('player2', (data) => {
-    console.log("Player 2 has connected: " + playerTwoName)
+  socket.once('player2', (data) => {
+    $("#gameTextBox").append("Player 2 connected succesfully as: " + playerTwoName + ". <br> You have the first attack.")
     // Create game for player 2
     game2 = data.room;
     playerTwoAttack = false;
     battle();
+
   });
 
 }());
