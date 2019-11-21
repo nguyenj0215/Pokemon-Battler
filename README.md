@@ -4,7 +4,7 @@ The Pokemon Battler application was developed as a part of UCSDs Full-Stack Codi
 Pokemon games and allows multiple users to connect to the same unique match rooms by id and participate in a turn-based
 Pokemon battle.
 
-![PokemonBattler](public/images/Example.png)
+![PokemonBattler](public/images/example.png)
 
 Languages and Tools:
 HTML, CSS, Javascript, jQuery, MySql, Heroku, Express.js, Node.js, Socket.io
