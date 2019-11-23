@@ -12,7 +12,7 @@
       species: "Squirtle",
       types: ["Water"],
       genderRatio: { M: 0.875, F: 0.125 },
-      baseStats: { hp: 100, atk: 22, def: 65, spa: 50, spd: 64, spe: 43 },
+      baseStats: { hp: 75, atk: 22, def: 65, spa: 50, spd: 64, spe: 43 },
       abilities: { 0: "Torrent", H: "Rain Dish" },
       heightm: 0.5,
       weightkg: 9,
@@ -41,57 +41,22 @@
   ];
 
   $(".battlePage").hide();
-  //For local hosting use
-  //const socket = io.connect('localhost:8080');
-  //For Heroku use 
-  var socket = io.connect();
 
+  //For local hosting use
+  const socket = io.connect('localhost:8080');
+  //For Heroku use 
+  //var socket = io.connect();
 
   //By default neither player will be able to attack
-  var playerOneAttack = true;
-  var playerTwoAttack = true;
+  var playerOneAttack = false;
+  var playerTwoAttack = false;
   var playerOneName;
   var playerTwoName;
   var characterOne = pokemonArry[0];
   var characterTwo = pokemonArry[1];
-  var game1;
-  var game2;
-
+  var game;
   var characterOneHp = pokemonArry[0].baseStats.hp;
   var characterTwoHp = pokemonArry[1].baseStats.hp;
-
-  function battle() {
-    console.log( playerOneAttack, playerTwoAttack)
-    //on click of any of the 4 attack buttons which will all have this id
-    if (playerOneAttack) {
-      $("#attackButton").on("click", function () {
-        console.log("player 1 attacking player 2")
-        characterTwoHp -= characterOne.baseStats.atk;
-        if (characterTwoHp <= 0) {
-          $("#gameTextBox").html("Player one has won!")
-          return;
-        }
-        $("#gameTextBox").html(characterOne.species + " has " + characterOneHp + " HP left.<br>" +
-        characterTwo.species + " has " + characterTwoHp + " HP left. " )
-        socket.emit("playTurn", {room: game2, playerOneAttack: false, playerTwoAttack:true, characterTwoHp: characterTwoHp, 
-          characterTwoName: characterTwo.species, characterOneHp: characterOneHp, characterOneName: characterOne.species});
-
-      })
-    } else if (playerTwoAttack) {
-      $("#attackButton").on("click", function () {
-        console.log("player 2 attacking player 1")
-        characterOneHp -= characterTwo.baseStats.atk;
-        if (characterOneHp <= 0) {
-          $("#gameTextBox").html("Player two has won!")
-          return;
-        }
-        $("#gameTextBox").html(characterOne.species + " has " + characterOneHp + " HP left.<br>" +
-        characterTwo.species + " has " + characterTwoHp + " HP left. " )
-        socket.emit("playTurn", {room: game1, playerOneAttack: true, playerTwoAttack:false, characterTwoHp: characterTwoHp, 
-          characterTwoName: characterTwo.species, characterOneHp: characterOneHp, characterOneName: characterOne.species});
-      })
-    }
-  }
 
   // Create a new game. Emit newGame event.
   $('#new').on('click', () => {
@@ -107,6 +72,7 @@
 
   // Join an existing game on the entered roomId. Emit the joinGame event.
   $('#join').on('click', () => {
+
     playerTwoName = $('#nameJoin').val();
     const roomID = $('#room').val();
 
@@ -120,39 +86,162 @@
   });
 
   socket.once('newGame', (data) => {
+
     $("#gameTextBox").append(
-      "Hello, " + playerOneName + ". Please ask your friend to enter Game ID:" +
-      data.room + ". Waiting for player 2...");
+      `Hello, ${playerOneName}. <br><br> Please ask your friend to enter Game ID: 
+      ${data.room}. <br><br> Waiting for player 2 to connect...`);
 
     // Create game for player 1
-    game1 = data.room;
+    game = data.room;
   });
-  socket.once('player1', (data) => {
-    $("#gameTextBox").html("Player 1 connected sucessfully as: " + playerOneName)
+
+  socket.on('player1', () => {
+    $("#gameTextBox").html(`An opponent has succesfully connected. <br> Wait for your turn!`)
   });
-  socket.once('turnPlayed', (data) => {
-    $("#gameTextBox").html(data.characterOneName + " has " + data.characterOneHp + " HP left.<br>" +
-    data.characterTwoName + " has " + data.characterTwoHp + " HP left. " )
-    if (!data.playerOneAttack && data.playerTwoAttack) {
-      $("#gameTextBox").append("<br>Opponent done attacking. It's your turn")
-      playerOneAttack = false;
-      playerTwoAttack = true;
-      battle();
-    } else if (!data.playerTwoAttack && data.playerOneAttack) {
-      $("#gameTextBox").append("<br>Opponent done attacking. It's your turn")
-      playerTwoAttack = false;
-      playerOneAttack = true;
-      battle();
+
+  socket.on('player2', (data) => {
+
+    $("#gameTextBox").append(`Connected succesfully as ${playerTwoName}. <br> It is your turn first!`)
+
+    // Create game for player 2
+    game = data.room;
+
+    playerTwoAttack = true;
+
+    //Initial client side battle that will initate battle loop
+    if (playerTwoAttack) {
+
+      $("#attackButton").on("click", function () {
+
+        $("#attackButton").hide();
+
+        characterOneHp -= characterTwo.baseStats.atk;
+
+        $("#gameTextBox").html(`
+        ${characterTwo.species} attacked ${characterOne.species} 
+        for ${characterTwo.baseStats.atk} 
+        <br>
+        ${characterOne.species} has ${characterOneHp} HP left. 
+        <br>
+        ${characterTwo.species} has ${characterTwoHp} HP left.`)
+
+        socket.emit("playTurn", {
+          room: game,
+          playerOneAttack: false,
+          playerTwoAttack: true,
+          characterTwoHp: characterTwoHp,
+          characterTwoName: characterTwo.species,
+          characterOneHp: characterOneHp,
+          characterOneName: characterOne.species
+        });
+      })
     }
   });
 
-  socket.once('player2', (data) => {
-    $("#gameTextBox").append("Player 2 connected succesfully as: " + playerTwoName + ". <br> You have the first attack.")
-    // Create game for player 2
-    game2 = data.room;
-    playerTwoAttack = false;
-    battle();
+  socket.on('turnPlayed', (data) => {
 
+    //Server check for win conditions
+    if (data.characterTwoHp <= 0) {
+      $("#gameTextBox").html("Player one has won!")
+      console.log('hit')
+      $("#attackButton").hide()
+      return;
+    } else if (data.characterOneHp <= 0) {
+      $("#gameTextBox").html("Player two has won!")
+      $("#attackButton").hide()
+      console.log('hit')
+      return;
+    }
+
+    //Update client side with data from server
+    characterOneHp = data.characterOneHp;
+    characterTwoHp = data.characterTwoHp;
+
+    //Always Update the game text box of the next players client
+    $("#gameTextBox").html(`${data.characterOneName}  has ${data.characterOneHp} HP left. <br>
+      ${data.characterTwoName} has ${data.characterTwoHp} HP left.`)
+
+    if (data.playerTwoAttack) {
+
+      playerTwoAttack = false;
+      playerOneAttack = true;
+
+      $("#attackButton").show();
+
+      $("#gameTextBox").append("<br><br> Opponent done attacking. <br> It's your turn!");
+
+      if (playerOneAttack) {
+
+        $("#attackButton").on("click", function () {
+
+          $("#attackButton").hide();
+
+          characterTwoHp -= characterOne.baseStats.atk;
+
+          //Update current client game text of user whos turn it currently is
+          $("#gameTextBox").html(`${characterOne.species} attacked 
+          ${characterTwo.species} for ${characterOne.baseStats.atk} 
+          <br>
+          ${characterOne.species} has ${characterOneHp} HP left. 
+          <br>
+          ${characterTwo.species} has ${characterTwoHp} HP left.`);
+
+          socket.emit("playTurn", {
+            room: game,
+            playerOneAttack: true,
+            playerTwoAttack: false,
+            characterTwoHp: characterTwoHp,
+            characterTwoName: characterTwo.species,
+            characterOneHp: characterOneHp,
+            characterOneName: characterOne.species
+          });
+
+          //Client side check for win condition
+          if (characterTwoHp <= 0) {
+            $("#gameTextBox").html("Player one has won!");
+          }
+        })
+      }
+    } else if (data.playerOneAttack) {
+
+      playerOneAttack = false;
+      playerTwoAttack = true;
+
+      $("#attackButton").show();
+
+      $("#gameTextBox").append("<br><br> Opponent done attacking. <br> It's your turn!");
+
+      if (playerTwoAttack) {
+
+        $("#attackButton").on("click", function () {
+
+          $("#attackButton").hide();
+
+          characterOneHp -= characterTwo.baseStats.atk;
+
+          $("#gameTextBox").html(`${characterTwo.species} attacked 
+          ${characterOne.species} for ${characterTwo.baseStats.atk} 
+          <br>
+          ${characterOne.species} has ${characterOneHp} HP left. 
+          <br>
+          ${characterTwo.species} has ${characterTwoHp} HP left.`);
+
+          socket.emit("playTurn", {
+            room: game,
+            playerOneAttack: false,
+            playerTwoAttack: true,
+            characterTwoHp: characterTwoHp,
+            characterTwoName: characterTwo.species,
+            characterOneHp: characterOneHp,
+            characterOneName: characterOne.species
+          });
+
+          if (characterOneHp <= 0) {
+            $("#gameTextBox").html("Player two has won!")
+          }
+        })
+      }
+    }
   });
 
 }());
