@@ -56,7 +56,7 @@ var characterTwoHp = pokemonArry[1].baseStats.hp;
   function battle(p1, p2) {
 
     $("#attackButton").show();
-    
+
     if (p1) {
 
       $("#attackButton").on("click", function () {
@@ -87,7 +87,6 @@ var characterTwoHp = pokemonArry[1].baseStats.hp;
           characterOneHp: characterOneHp,
           characterOneName: characterOne.species
         });
-
       })
     } else if (p2) {
 
@@ -97,16 +96,16 @@ var characterTwoHp = pokemonArry[1].baseStats.hp;
 
         characterOneHp -= characterTwo.baseStats.atk;
 
-        if (characterOneHp <= 0) {
-          $("#gameTextBox").html("Player two has won!");
-        };
-
         $("#gameTextBox").html(`${characterTwo.species} attacked 
           ${characterOne.species} for ${characterTwo.baseStats.atk} 
           <br>
           ${characterOne.species} has ${characterOneHp} HP left. 
           <br>
           ${characterTwo.species} has ${characterTwoHp} HP left.`);
+
+        if (characterOneHp <= 0) {
+          $("#gameTextBox").html("Player two has won!");
+        };
 
         socket.emit("playTurn", {
           room: game,
@@ -117,7 +116,7 @@ var characterTwoHp = pokemonArry[1].baseStats.hp;
           characterOneHp: characterOneHp,
           characterOneName: characterOne.species
         });
-
+        return;
       })
     }
   }
@@ -184,9 +183,13 @@ var characterTwoHp = pokemonArry[1].baseStats.hp;
 
     //Server check for win conditions
     if (data.characterTwoHp <= 0) {
+      $("#attackButton").hide();
+      socket.disconnect();
       $("#gameTextBox").html("Player one has won!");
       return;
     } else if (data.characterOneHp <= 0) {
+      $("#attackButton").hide();
+      socket.disconnect();
       $("#gameTextBox").html("Player two has won!");
       return;
     };
