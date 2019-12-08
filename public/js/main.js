@@ -1,4 +1,7 @@
-const socket = io.connect('localhost:8080');
+  //For local hosting use
+  //const socket = io.connect('localhost:8080');
+  //For Heroku use 
+  var socket = io.connect();
 
 var pokemonArry = [
   {
