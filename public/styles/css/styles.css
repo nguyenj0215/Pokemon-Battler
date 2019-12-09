@@ -6,7 +6,7 @@ body {
   opacity: 0.9;
 }
 .blogPage {
-  background: url("../../images/mainBackGround.gif") no-repeat center center fixed; 
+  background: url("../../images/Welcome.jpg") no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -40,6 +40,13 @@ button.edit {
   margin-top: 50px;
 }
 
+.menu {
+  margin-top: 18%;
+  margin-left: 27.5%;
+  background-color: turquoise;
+  width: 600px;
+}
+
 .user-list {
   margin-top: 25px;
 }
@@ -64,7 +71,7 @@ button.edit {
   margin-top: 30px;
 }
 .gameName {
-  color: white;
+  color: yellow;
   margin: auto;
   margin-bottom: 10px;
   margin-top: 30px;
@@ -72,7 +79,7 @@ button.edit {
   font-size: 55px;
   font-weight: bold;
   font-family: 'Alegreya', serif;
-  background-color: #4aaaa5;
+  
   opacity: 0.9;
 }
 .gamePicDiv {
